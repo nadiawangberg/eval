@@ -6,7 +6,7 @@ mkdir evaluation
 mkdir evaluation/$1
 mkdir evaluation/$1/metrics
 
-#Set latex params
+#Set latex params for plots
 evo_config reset
 # evo_config set plot_seaborn_style whitegrid
 # evo_config set plot_usetex
@@ -16,9 +16,9 @@ evo_config reset
 # evo_config set plot_figsize 5 4.5
 
 
-# evo_config reset
-# evo_config set table_export_format latex
-# evo_config set save_traj_in_zip true
+# Table in latex format
+evo_config set table_export_format latex
+evo_config set save_traj_in_zip true
 
 # Plot graphs
 evo_traj bag uhumans2_$1.bag /tf:world.base_link_kimera --ref /tf:world.base_link_gt $2 --plot_mode xy --save_plot evaluation/$1/uhumans2_$1.svg --save_table evaluation/$1/uhumans_$1_table.tex
