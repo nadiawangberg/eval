@@ -30,3 +30,12 @@ evo_ape bag uhumans2_$1.bag /tf:world.base_link_gt /tf:world.base_link_kimera --
 
 # RPE
 evo_rpe bag uhumans2_$1.bag /tf:world.base_link_gt /tf:world.base_link_kimera --t_end 495 --align_origin $2 --plot_mode xy --save_plot evaluation/$1/metrics/$1_rpe_plot.svg --save_results evaluation/$1/metrics/$1_RPE.zip
+
+
+# Convert stats.json to stats.tex
+
+unzip evaluation/$1/metrics/$1_ATE.zip -d evaluation/$1/metrics/$1_ATE 
+python3 table_json_to_tex.py  evaluation/$1/metrics/$1_ATE
+
+unzip evaluation/$1/metrics/$1_RPE.zip -d evaluation/$1/metrics/$1_RPE 
+python3 table_json_to_tex.py  evaluation/$1/metrics/$1_RPE
