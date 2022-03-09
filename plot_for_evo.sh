@@ -23,8 +23,10 @@ evo_config set save_traj_in_zip true
 # Plot graphs
 evo_traj bag uhumans2_$1.bag /tf:world.base_link_kimera --ref /tf:world.base_link_gt $2 --plot_mode xy --save_plot evaluation/$1/uhumans2_$1.svg --save_table evaluation/$1/uhumans_$1_table.tex
 
+#NOTE: add --t_end 495 to 'evo_ape' and 'evo_rpe' to only eval until time 495sec
+
 # ATE
-evo_ape bag uhumans2_$1.bag /tf:world.base_link_gt /tf:world.base_link_kimera --align_origin $2 --plot_mode xy --save_plot evaluation/$1/metrics/$1_ate_plot.svg --save_results evaluation/$1/metrics/$1_ATE.zip
+evo_ape bag uhumans2_$1.bag /tf:world.base_link_gt /tf:world.base_link_kimera --t_end 495 --align_origin $2 --plot_mode xy --save_plot evaluation/$1/metrics/$1_ate_plot.svg --save_results evaluation/$1/metrics/$1_ATE.zip
 
 # RPE
-evo_rpe bag uhumans2_$1.bag /tf:world.base_link_gt /tf:world.base_link_kimera --align_origin $2 --plot_mode xy --save_plot evaluation/$1/metrics/$1_rpe_plot.svg --save_results evaluation/$1/metrics/$1_RPE.zip
+evo_rpe bag uhumans2_$1.bag /tf:world.base_link_gt /tf:world.base_link_kimera --t_end 495 --align_origin $2 --plot_mode xy --save_plot evaluation/$1/metrics/$1_rpe_plot.svg --save_results evaluation/$1/metrics/$1_RPE.zip
