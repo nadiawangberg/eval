@@ -2,9 +2,12 @@
 # $1 - scene_name (office / office_w_people)
 # $2 - duration (2m)
 # $3 - rviz (true / false)
+# $4 - dyn / orig
 
 
-read -p "launch semantic segmentation kimera_vio (ours) or the original kimera_vio? [dyn / orig] : " KIMERAVERSION
+# read -p "launch semantic segmentation kimera_vio (ours) or the original kimera_vio? [dyn / orig] : " KIMERAVERSION
+
+KIMERAVERSION=$4
 
 if [[ "$KIMERAVERSION" == "dyn" ]]
 then
@@ -23,13 +26,18 @@ fi
 #roslaunch robust_slam kimera_uhumans.launch scene:=$1 record_for_evo:=true d:=$2 rviz:=$3 seg_frame_topic:="-" #Without seg_frame
 
 #Sleeping to wait for rosprocesses exiting (TODO(Nadia) - is this neccesary?)
-sleep 2
+sleep 1
 
+
+ # ./plot_for_evo.sh <name_of_rosbag> <should_plot> 
 if [[ "$KIMERAVERSION" == "dyn" ]]
 then
   #Use seg frame
-  ./plot_for_evo.sh $1_$2_dyn --plot # ./plot_for_evo.sh <name_of_rosbag> <should_plot> 
+  yes | ./plot_for_evo.sh $1_$2_dyn
 else
   #Use original - no segmentation frame
-  ./plot_for_evo.sh $1_$2_orig --plot
+  yes | ./plot_for_evo.sh $1_$2_orig
 fi
+
+
+# ./plot_for_evo.sh $1_$2_orig --plot
