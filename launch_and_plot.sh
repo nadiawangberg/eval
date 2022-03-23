@@ -21,10 +21,6 @@ else
 fi
 
 
-#roslaunch robust_slam kimera_uhumans.launch scene:=$1 record_for_evo:=true d:=$2 rviz:=$3 # With seg_frame
-
-#roslaunch robust_slam kimera_uhumans.launch scene:=$1 record_for_evo:=true d:=$2 rviz:=$3 seg_frame_topic:="-" #Without seg_frame
-
 #Sleeping to wait for rosprocesses exiting (TODO(Nadia) - is this neccesary?)
 sleep 1
 
@@ -33,11 +29,8 @@ sleep 1
 if [[ "$KIMERAVERSION" == "dyn" ]]
 then
   #Use seg frame
-  yes | ./plot_for_evo.sh $1_$2_dyn
+  yes | ./plot_for_evo.sh $1_$2_dyn # --plot
 else
   #Use original - no segmentation frame
-  yes | ./plot_for_evo.sh $1_$2_orig
+  yes | ./plot_for_evo.sh $1_$2_orig # --plot
 fi
-
-
-# ./plot_for_evo.sh $1_$2_orig --plot
