@@ -1,0 +1,1 @@
+{"title": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment) (aligned poses: 50)", "ref_name": "/kimera_vio_ros/gt_odom", "est_name": "/kimera_vio_ros/odometry", "label": "APE (m)"}
