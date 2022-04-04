@@ -38,6 +38,7 @@ def plot_figure(data, title):
     for patch, color in zip(bplot['boxes'], colors):
         patch.set_facecolor(color)
 
+    ax1.legend(["Semantic-Kimera-VIO", "Kimera-VIO"], labelcolor=colors)
     plt.show()
 
 
@@ -54,17 +55,6 @@ boxplt_orig_ate = read_latex_table(fullpath_orig_ate_tex)
 boxplt_ate = [boxplt_dyn_ate[metric_index], boxplt_orig_ate[metric_index]]
 
 
-plot_figure(data=boxplt_rpe, title=metric_title[metric_index] + " RPE")
-plot_figure(data=boxplt_ate, title=metric_title[metric_index] + " ATE")
-
-
-# fig1, ax1 = plt.subplots()
-# ax1.set_title(metric_names[metric_index])
-# bplot = ax1.boxplot(boxplt_rpe, patch_artist=True)
-
-# # fill with colors
-# colors = ['pink', 'lightblue', 'lightgreen']
-# for patch, color in zip(bplot['boxes'], colors):
-#     patch.set_facecolor(color)
-
-# plt.show()
+subtitle = "\n (for 10 runs on the VIODE " + name_of_dataset[:-3] + " dataset)"
+plot_figure(data=boxplt_rpe, title=metric_title[metric_index] + " RPE" + subtitle)
+plot_figure(data=boxplt_ate, title=metric_title[metric_index] + " ATE" + subtitle)
