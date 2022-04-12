@@ -28,9 +28,12 @@ def read_latex_table(textable_fullpath):
     boxplt_arr = np.array(boxplt_arr).transpose()
     return boxplt_arr
 
-def plot_figure(data, title):
+def plot_figure(data, title, name_of_dataset):
     fig1, ax1 = plt.subplots()
-    ax1.set_title(title)
+
+    subtitle = "\n (for 10 runs on the VIODE " + name_of_dataset[:-3] + " dataset)"
+    ax1.set_title(title + subtitle)
+
     bplot = ax1.boxplot(data, patch_artist=True)
 
     # fill with colors
@@ -39,6 +42,9 @@ def plot_figure(data, title):
         patch.set_facecolor(color)
 
     ax1.legend(["Semantic-Kimera-VIO", "Kimera-VIO"], labelcolor=colors)
+
+    fullpath_svg = fullpath_comp_folder + "/" + name_of_dataset + "_" + title + ".svg"
+    plt.savefig(fullpath_svg)
     plt.show()
 
 
@@ -55,6 +61,11 @@ boxplt_orig_ate = read_latex_table(fullpath_orig_ate_tex)
 boxplt_ate = [boxplt_dyn_ate[metric_index], boxplt_orig_ate[metric_index]]
 
 
-subtitle = "\n (for 10 runs on the VIODE " + name_of_dataset[:-3] + " dataset)"
-plot_figure(data=boxplt_rpe, title=metric_title[metric_index] + " RPE" + subtitle)
-plot_figure(data=boxplt_ate, title=metric_title[metric_index] + " ATE" + subtitle)
+title_rpe = metric_title[metric_index] + " RPE"
+title_ate = metric_title[metric_index] + " ATE"
+
+plot_figure(data=boxplt_rpe, title=title_rpe, name_of_dataset=name_of_dataset)
+plot_figure(data=boxplt_ate, title=title_ate, name_of_dataset=name_of_dataset)
+
+
+# save figure as fullpath_comp_folder + "/" + metric_title[metric_index] + "_ATE"
