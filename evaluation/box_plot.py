@@ -102,4 +102,4 @@ with open(logging_file_name, 'a') as f:
 print(logging_str)
 
 plot_figure(data=boxplt_rpe, title=title_rpe, name_of_dataset=name_of_dataset, show_plt=False, name_of_parent_dataset=name_of_parent_dataset, N=N)
-plot_figure(data=boxplt_ate, title=title_ate, name_of_dataset=name_of_dataset, show_plt=False name_of_parent_dataset=name_of_parent_dataset, N=N)
+plot_figure(data=boxplt_ate, title=title_ate, name_of_dataset=name_of_dataset, show_plt=False, name_of_parent_dataset=name_of_parent_dataset, N=N)
