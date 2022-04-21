@@ -5,7 +5,7 @@ from utils import find_percentage_diff
 
 fullpath_comp_folder = sys.argv[1]
 name_of_parent_dataset = sys.argv[2]
-name_of_dataset = fullpath_comp_folder[-14:-5]
+name_of_dataset = fullpath_comp_folder.split("/")[-1][:-5]
 
 fullpath_dyn_rpe_tex = fullpath_comp_folder + "/dyn/" + name_of_dataset + "_comp_rpe_table.tex"
 fullpath_dyn_ate_tex = fullpath_comp_folder + "/dyn/" + name_of_dataset + "_comp_ate_table.tex"
@@ -51,14 +51,19 @@ def plot_figure(data, title, name_of_dataset, show_plt, name_of_parent_dataset, 
     plt.savefig(fullpath_svg)
     if show_plt: plt.show()
 
+def round_3_sigfig(num):
+    return float('%.3g' % num)
 
 def create_avg_metric_tex(metric_orig, metric_modif):
-    avg_metric_orig = np.median(metric_orig)
-    avg_metric_modif = np.median(metric_modif)
-    perc_diff = round(((avg_metric_orig-avg_metric_modif) / avg_metric_orig) * 100, 2)
+    median_orig = np.median(metric_orig)
+    median_modif = np.median(metric_modif)
+    std_orig = np.std(metric_orig)
+    std_modif = np.std(metric_modif)
+    perc_diff = ((median_orig-median_modif) / median_orig) * 100
 
-    latex_str = f"{round(avg_metric_orig,3)} & {round(avg_metric_modif,3)} & {perc_diff}\%"
-    return latex_str
+    latex_str = f"{round_3_sigfig(median_orig)} & {round_3_sigfig(median_modif)} & {round_3_sigfig(perc_diff)} \% "
+    bonus_info = f"\n orig: {round_3_sigfig(std_orig)}, modif: {round_3_sigfig(std_modif)}"
+    return latex_str + bonus_info
 
 
 
@@ -80,9 +85,6 @@ title_ate = metric_title[metric_index] + " ATE"
 
 ate_tex_str = create_avg_metric_tex(boxplt_orig_ate[metric_index], boxplt_dyn_ate[metric_index])
 rpe_tex_str = create_avg_metric_tex(boxplt_orig_rpe[metric_index], boxplt_dyn_rpe[metric_index])
-
-# fullpath_comp_folder/../../metrics_avg_ATE_log.txt
-# fullpath_comp_folder/../../metrics_avg_RPE_log.txt
 
 
 logging_str = ""
