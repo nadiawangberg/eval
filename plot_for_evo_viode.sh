@@ -27,8 +27,11 @@ evo_config set table_export_format latex
 evo_config set save_traj_in_zip true
 
 # Plot graphs
-evo_traj bag --no_warnings --t_max_diff $T_MAX_DIFF --sync --align --n_to_align $N_TO_ALIGN viode/viode_$1.bag /kimera_vio_ros/odometry --ref /kimera_vio_ros/gt_odom $2 --plot_mode xy --save_plot evaluation/$1/viode_$1.svg --save_table evaluation/$1/viode_$1_table.tex
+output=$(evo_traj bag --no_warnings --t_max_diff $T_MAX_DIFF --sync --align --n_to_align $N_TO_ALIGN viode/viode_$1.bag /kimera_vio_ros/odometry --ref /kimera_vio_ros/gt_odom $2 --plot_mode xy --save_plot evaluation/$1/viode_$1.svg --save_table evaluation/$1/viode_$1_table.tex | grep infos)
 
+TR=$(python3 track_rate.py "${output}")
+
+echo "$1:${TR}" >> evaluation/TR_log.txt
 
 # ATE
 evo_ape bag --no_warnings --t_start $T_START --t_max_diff $T_MAX_DIFF --align --n_to_align $N_TO_ALIGN viode/viode_$1.bag /kimera_vio_ros/gt_odom /kimera_vio_ros/odometry $2 --plot_mode xy --save_plot evaluation/$1/metrics/$1_ate_plot.svg --save_results evaluation/$1/metrics/$1_ATE.zip

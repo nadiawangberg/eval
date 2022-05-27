@@ -59,10 +59,10 @@ def create_avg_metric_tex(metric_orig, metric_modif):
     median_modif = np.median(metric_modif)
     std_orig = np.std(metric_orig)
     std_modif = np.std(metric_modif)
-    perc_diff = ((median_orig-median_modif) / median_orig) * 100
+    perc_diff = ((median_modif-median_orig) / median_orig) * 100 # Relative change between ORIGINAL(1) and OURS(2)
 
     latex_str = f"{round_3_sigfig(median_orig)} & {round_3_sigfig(median_modif)} & {round_3_sigfig(perc_diff)} \% "
-    bonus_info = f"\n orig: {round_3_sigfig(std_orig)}, modif: {round_3_sigfig(std_modif)}"
+    bonus_info = f"\nstd_orig: {round_3_sigfig(std_orig)}, std_modif: {round_3_sigfig(std_modif)}"
     return latex_str + bonus_info
 
 
